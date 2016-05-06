@@ -1,6 +1,6 @@
-# pool-resource
+# dirty-pool-resource
 
-*a pool of locks (modeling semaphores)*
+*a pool of locks that are marked dirty after use*
 
 Allows you to lock environments, pipeline flow, or other entities which have to
 be interacted with in a serial manner.
