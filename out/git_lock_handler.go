@@ -78,8 +78,12 @@ func (glh *GitLockHandler) RemoveLock(lockName string) (string, error) {
 
 func (glh *GitLockHandler) UnclaimLock(lockName string) (string, error) {
 	pool := filepath.Join(glh.dir, glh.Source.Pool)
+	dirtyPool := filepath.Join(glh.dir, "dirty-" +  glh.Source.Pool)
 
-	_, err := glh.git("mv", filepath.Join(pool, "claimed", lockName), filepath.Join(pool, "unclaimed", lockName))
+  claimedLockPath := filepath.Join(pool, "claimed", lockName)
+  unclaimedDirtyLockPath := filepath.Join(dirtyPool, "unclaimed", lockName)
+
+	_, err := glh.git("mv", claimedLockPath, unclaimedDirtyLockPath)
 	if err != nil {
 		return "", err
 	}

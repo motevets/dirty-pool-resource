@@ -575,7 +575,7 @@ func itWorksWithBranch(branchName string) {
 				Ω(err).ShouldNot(HaveOccurred())
 			})
 
-			It("moves the lock to unclaimed", func() {
+			It("moves the lock to dirty unclaimed", func() {
 				version := getVersion(bareGitRepo, "origin/"+branchName)
 
 				reCloneRepo, err := ioutil.TempDir("", "git-version-repo")
@@ -596,7 +596,12 @@ func itWorksWithBranch(branchName string) {
 				unclaimedFiles, err := ioutil.ReadDir(filepath.Join(reCloneRepo, "lock-pool", "unclaimed"))
 				Ω(err).ShouldNot(HaveOccurred())
 
-				Ω(len(unclaimedFiles)).Should(Equal(3))
+				Ω(len(unclaimedFiles)).Should(Equal(2))
+
+				dirtyUnclaimedFiles, err := ioutil.ReadDir(filepath.Join(reCloneRepo, "dirty-lock-pool", "unclaimed"))
+				Ω(err).ShouldNot(HaveOccurred())
+
+				Ω(len(dirtyUnclaimedFiles)).Should(Equal(2))
 
 				var releasedLockName string
 				for _, metaDataPair := range outResponse.Metadata {

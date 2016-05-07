@@ -101,9 +101,13 @@ func setupGitRepo(dir string) {
 
 		mkdir -p lock-pool/unclaimed
 		mkdir -p lock-pool/claimed
+		mkdir -p dirty-lock-pool/claimed
+		mkdir -p dirty-lock-pool/unclaimed
 
 		touch lock-pool/unclaimed/.gitkeep
 		touch lock-pool/claimed/.gitkeep
+		touch dirty-lock-pool/unclaimed/.gitkeep
+		touch dirty-lock-pool/claimed/.gitkeep
 
 		touch lock-pool/unclaimed/some-lock
 		touch lock-pool/unclaimed/some-other-lock
